@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -446,7 +446,7 @@ template<
     size_t   GroupSize>
 void HashBase<Key, Entry, Allocator, HashFunc, EqualFunc, AllocFunc, GroupSize>::Reset()
 {
-    if (m_pMemory != nullptr)
+    if ((m_pMemory != nullptr) && (m_numEntries != 0))
     {
         // Re-zero out the hash table.
         memset(m_pMemory, 0, m_memorySize);

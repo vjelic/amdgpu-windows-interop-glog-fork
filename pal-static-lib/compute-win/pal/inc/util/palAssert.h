@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2017-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2017-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -52,18 +52,6 @@
 #else
 /// This macro is only useful on MSVC builds. It has no meaning for other builds.
 # define PAL_ANALYSIS_ASSUME(_expr) ((void)0)
-#endif
-
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 825
-#if PAL_HAS_BUILTIN(__builtin_expect) || (defined(__GNUC__) && !defined(__clang__))
-/// Informs the compiler to assume that the given expression likely evaluates to true, and returns that expression.
-#define PAL_PREDICT_TRUE(_expr) __builtin_expect(!!(_expr), 1)
-/// Informs the compiler to assume that the given expression likely evaluates to false, and returns that expression.
-#define PAL_PREDICT_FALSE(_expr) __builtin_expect((_expr), 0)
-#else
-#define PAL_PREDICT_TRUE(_expr) (_expr)
-#define PAL_PREDICT_FALSE(_expr) (_expr)
-#endif
 #endif
 
 namespace Util

@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -100,6 +100,10 @@ enum class MetadataMode : uint16
     Disabled,           ///< The Image will not contain any compression metadata.
     FmaskOnly,          ///< The color msaa Image will only contain Cmask/Fmask metadata; this mode is only valid for
                         ///  color msaa Image.
+                        ///  On GPUs with GFX12-style distributed compression (see
+                        ///  supportDistributedCompression flag in @ref DeviceProperties),
+                        ///  metadataMode only controls UMD metadata (Hi-Z and Hi-S). On such
+                        ///  GPUs, the FmaskOnly enum is ignored and treated like Default.
     Count,
 };
 
@@ -212,12 +216,8 @@ union ImageCreateFlags
         uint32 sharedWithMesa          :  1; ///< Indicate this Image was opened from a Mesa shared Image
         uint32 enable256KBSwizzleModes :  1; ///< Enable 256 KiB swizzle modes
         uint32 hasModifier             :  1; ///< Set if the image uses drm format modifier.
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 813
         uint32 disableDccStateTracking :  1; ///< Disable a PAL optimization which is commonly broken by app bugs.
                                              ///  Setting this flag may increase DCC decompress overhead.
-#else
-        uint32 reserved813             :  1; ///< Reserved for future use.
-#endif
 #if PAL_CLIENT_EXAMPLE
         uint32 useFixedSwizzleMode     :  1; ///< If set, require the fixed swizzle mode provided.
                                              ///  Fails creation on incompatible swizzles.
@@ -307,7 +307,27 @@ struct ImageCreateInfo
     SwizzleMode        fixedSwizzleMode;  ///< For directed image tests, force a particular swizzle mode.
 #endif
     MetadataMode       metadataMode;      ///< Metadata behavior mode for this image.
+                                          ///  On GPUs with GFX12-style distributed compression (see
+                                          ///  supportDistributedCompression flag in @ref DeviceProperties),
+                                          ///  metadataMode only controls UMD metadata (Hi-Z and Hi-S). On such
+                                          ///  GPUs, the FmaskOnly enum is ignored and treated like Default.
     MetadataTcCompatMode metadataTcCompatMode; ///< TC compat mode for this image.
+    /// Distributed compression contains GL2/DF DCC compression and RB backend client compression which includes
+    /// fragment client compression (previous FMASK compression alike) on color MSAA images and Z Plane client
+    /// compression on depth stencil images.
+    /// Only relevant if the backing memory pages enable compression, controllable by client with
+    /// @ref GpuMemoryCreateInfo::compression.
+    CompressionMode    compressionMode;       ///< Specify GFX12-style GL2/DF DCC compression behavior for this
+                                              ///  resource.
+#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 876
+    /// Client compression is part of distributed compression (aka physical compression); it can only be enabled if
+    /// physical compression is enabled.
+    ///
+    /// On Gfx12, controls (legacy FMask based) color fragment compression and Z plane compression.
+    ClientCompressionMode clientCompressionMode; ///< Controls client compression behavior for this resource.
+#else
+    TriState           clientCompressionMode; ///< Controls client compression behavior for this resource.
+#endif
     uint32             maxBaseAlign;      ///< Maximum address alignment for this image or zero for an unbounded
                                           ///  alignment.
     float              imageMemoryBudget; ///< The memoryBudget value used in SW addrlib to determine the minSizeBlk for
@@ -381,6 +401,8 @@ inline constexpr bool operator==(const ImageCreateInfo& lhs, const ImageCreateIn
 #endif
                 (lhs.metadataMode            == rhs.metadataMode)            &&
                 (lhs.metadataTcCompatMode    == rhs.metadataTcCompatMode)    &&
+                (lhs.compressionMode         == rhs.compressionMode)         &&
+                (lhs.clientCompressionMode   == rhs.clientCompressionMode)   &&
                 (lhs.maxBaseAlign            == rhs.maxBaseAlign)            &&
                 (lhs.imageMemoryBudget       == rhs.imageMemoryBudget)       &&
                 (lhs.prtPlus.mapType         == rhs.prtPlus.mapType)         &&
@@ -403,7 +425,7 @@ inline constexpr bool operator==(const ImageCreateInfo& lhs, const ImageCreateIn
     }
 #endif
 
-    if (same && (lhs.viewFormatCount > 0))
+    if (same && (lhs.viewFormatCount > 0) && (lhs.viewFormatCount != AllCompatibleFormats))
     {
         same = (memcmp(lhs.pViewFormats, rhs.pViewFormats, lhs.viewFormatCount * sizeof(SwizzledFormat)) == 0);
     }
@@ -431,12 +453,8 @@ struct PresentableImageCreateInfo
 #else
             uint32 placeholder0     :  1; ///< Placeholder.
 #endif
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 811
             uint32 enable256KBSwizzleModes :  1; ///< Enable 256 KiB swizzle modes.
-#else
-            uint32 placeholder1            :  1; ///< Placeholder.
-#endif
-            uint32 reserved     : 25;   ///< Reserved for future use.
+            uint32 reserved                : 25; ///< Reserved for future use.
         };
         uint32 u32All;                  ///< Flags packed as 32-bit uint.
     } flags;                            ///< Presentable image creation flags.
@@ -444,6 +462,10 @@ struct PresentableImageCreateInfo
     SwizzledFormat      swizzledFormat; ///< Pixel format and channel swizzle.
     ImageUsageFlags     usage;          ///< Image usage flags.
     Extent2d            extent;         ///< Width/height of the image.
+    CompressionMode     compressionMode;///< Specify GFX12-style distributed compression behavior for this resource.
+                                        ///  Only relevant if the backing memory pages enable compression
+                                        ///  (controllable by client with the distributedCompression field in
+                                        ///  @ref GpuMemoryCreateInfo).
     const IScreen*      pScreen;        ///< Target screen for fullscreen presentable images.  Can be null if the
                                         ///  fullscreen flag is 0.
     OsDisplayHandle     hDisplay;       ///< Display handle of the local display system only for WSI.
@@ -483,6 +505,10 @@ struct PrivateScreenImageCreateInfo
     Extent2d        extent;         ///< Width/height of the image.
     IPrivateScreen* pScreen;        ///< Private screen this image is created on (then this image can be used to be
                                     ///  presented on this private screen).
+    CompressionMode compressionMode;///< Specify GFX12-style distributed compression behavior for this resource.
+                                    ///  Only relevant if the backing memory pages enable compression
+                                    ///  (controllable by client with the distributedCompression field in
+                                    ///  @ref GpuMemoryCreateInfo).
     uint32             viewFormatCount;   ///< Number of additional image formats views of this image can be used with
                                           ///  or the special value AllCompatibleFormats to indicate that all
                                           ///  compatible formats can be used as a view format.
@@ -625,6 +651,8 @@ enum SwizzleMode : uint32
     SwizzleMode64Kb3D,
     SwizzleMode256Kb2D,
     SwizzleMode256Kb3D,
+    SwizzleMode64Kb2Dz,
+    SwizzleMode256Kb2Dz,
     SwizzleModeCount,
 };
 

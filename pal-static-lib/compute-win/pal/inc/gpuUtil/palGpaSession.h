@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2016-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2016-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -275,7 +275,7 @@ struct GpaSampleConfig
                 Pal::uint32 supressInstructionTokens   :  1;  ///< Prevents capturing instruction-level SQTT tokens,
                                                               ///  significantly reducing the amount of sample data.
                 Pal::uint32 stallMode                  :  2;  ///< Describes behavior when buffer full
-                Pal::uint32 placeholder1               :  1;
+                Pal::uint32 stallAllSimds              :  1;  ///< Stall all SIMDs for thread trace stall.
                 Pal::uint32 excludeNonDetailShaderData :  1;  ///< Only emit shader tokens from the SIMD that have been
                                                               ///  selected for detail instruction tracing
 #if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 899
@@ -294,12 +294,10 @@ struct GpaSampleConfig
         Pal::gpusize gpuMemoryLimit; ///< Maximum amount of GPU memory in bytes this sample can allocate for the SQTT
                                      ///  buffer.  If 0, allocate maximum size to prevent dropping tokens toward the
                                      ///  end of the sample.
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 824
         Pal::uint32 tokenMask;       ///< Mask indicating which SQTT tokens are requested for capture. If a tokenMask is
                                      ///  not provided, PAL will default to collecting all tokens or tokens except
                                      ///  instruction tokens if the supressInstructionTokens flag is set. Instruction
                                      ///  tokens will always be filtered out if supressInstructionTokens = true.
-#endif
     } sqtt;  ///< SQ thread trace configuration (only valid for _trace_ samples).
 
     struct

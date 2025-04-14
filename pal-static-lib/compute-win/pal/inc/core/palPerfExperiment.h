@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -92,6 +92,12 @@ enum class GpuBlock : uint32
     DfMall  = 0x30, // The DF subblocks have unique instances and event IDs but they all share the DF's perf counters.
     SqWgp   = 0x31, // SQ counters that can be sampled at WGP granularity.
     Pc      = 0x32,
+    Gl1xa   = 0x33,
+    Gl1xc   = 0x34,
+    Wgs     = 0x35,
+    EaCpwd  = 0x36,
+    EaSe    = 0x37,
+    RlcUser = 0x38,
     Count
 };
 
@@ -142,6 +148,10 @@ enum class PerfTraceMarkerType : uint32
     A = SqttA,
     B = SqttB,
 #endif
+    SpmA  = 0x2,
+    SpmB  = 0x3,
+    SpmC  = 0x4,
+    SpmD  = 0x5,
     Count
 };
 
@@ -263,6 +273,7 @@ enum ThreadTraceTokenTypeFlags : Pal::uint32
     Immed1       = 0x00100000, ///< One wave issued an immediate instruction this cycle. TT 3.0.
     Immediate    = 0x00200000, ///< One or more waves have issued an immediate instruction this cycle. TT 3.0.
     UtilCounter  = 0x00400000, ///< A new set of utilization counter values. TT 3.0.
+    RealTime     = 0x00800000, ///< Output realtime. TT 3.3.
     All          = 0xFFFFFFFF  ///< Enable all the above tokens.
 };
 
@@ -326,7 +337,7 @@ struct ThreadTraceInfo
             uint32 threadTraceWrapBuffer                 :  1;
             uint32 threadTraceStallBehavior              :  1;
             uint32 threadTraceTokenConfig                :  1;
-            uint32 placeholder1                          :  1;
+            uint32 threadTraceStallAllSimds              :  1;
             uint32 threadTraceExcludeNonDetailShaderData :  1;
 #if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 899
             uint32 threadTraceEnableExecPop              :  1;
@@ -356,6 +367,7 @@ struct ThreadTraceInfo
         uint32                    threadTraceIssueMask;
         bool                      threadTraceWrapBuffer;
         uint32                    threadTraceStallBehavior;
+        bool                      threadTraceStallAllSimds;
         bool                      threadTraceExcludeNonDetailShaderData;
 #if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 899
         bool                      threadTraceEnableExecPop;
@@ -389,29 +401,9 @@ struct ThreadTraceLayout
     ThreadTraceSeLayout traces[1];   ///< ThreadTraceSeLayout repeated (traceCount - 1) times.
 };
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 810
-/// Represents all the segments in the spm trace sample. Global segment contains all the counter data for the blocks
-/// that are outside the shader engines.
-enum class SpmDataSegmentType : uint32
-{
-    Se0,
-    Se1,
-    Se2,
-    Se3,
-    Se4,
-    Se5,
-    Global,
-    Count
-};
-#endif
-
 /// Describes a single SPM counter instance.
 struct SpmCounterData
 {
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 810
-    SpmDataSegmentType segment;  ///< Segment this counter belongs to (global, Se0, Se1 etc).
-    gpusize            offset;   ///< Offset within the sample to the counter data. In units of counters, not bytes!
-#endif
     GpuBlock gpuBlock; ///< The kind of GPU block this counter measured.
     uint32   instance; ///< Which specific global block instance this counter measured.
     uint32   eventId;  ///< The event that was measured by this counter.
@@ -449,16 +441,8 @@ struct SpmTraceLayout
                               ///  theoretical next sample would go. This value may wrap back to zero if the HW runs of
                               ///  space in the SPM ring buffer.
     uint32  wrPtrGranularity; ///< The WrPtr's granularity. Multiply WrPtr's value by this value to get a byte offset.
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 810
     uint32  sampleOffset;     ///< Byte offset within the SPM trace data to the array of samples. The HW will write the
                               ///  first sample here but it will be overwritten if the ring wraps (see the top comment).
-#else
-    gpusize wptrOffset;        ///< Byte offset within the bound GPU memory to the HW's write pointer DWORD.
-    uint32  wptrGranularity;   ///< The wptr's granularity. Multiply wptr by this value to get a byte offset.
-    gpusize sampleOffset;      ///< Byte offset within the SPM trace data to the array of samples.
-    uint32  sampleSizeInBytes; ///< Size of all segments in one sample.
-    uint32  segmentSizeInBytes[static_cast<uint32>(SpmDataSegmentType::Count)]; ///< Individual segment sizes.
-#endif
     uint32  sampleStride;     ///< The distance between consecutive samples in bytes. May include empty padding.
     uint32  maxNumSamples;    ///< The maximum number of samples the HW can write before wrapping. The SPM ring buffer
                               ///  ends at sampleOffset + sampleStride * maxNumSamples.

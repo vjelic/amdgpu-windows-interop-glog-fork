@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -31,18 +31,26 @@
 
 #pragma once
 
-#include "palUtil.h"
+// pal
 #include "palAssert.h"
+#include "palAutoBuffer.h"
+#include "palFile.h"
 #include "palSpan.h"
 #include "palStringView.h"
 #include "palTime.h"
+#include "palUtil.h"
+#include "palVector.h"
+
+// stl
 #include <cerrno>
 #include <cstring>
 
+// platform
 #if defined(_WIN32)
 #define PAL_HAS_CPUID (_M_IX86 || _M_X64)
 #include <intrin.h>
 #include <winerror.h>
+typedef void* HANDLE;
 #elif defined(__unix__)
 #define PAL_HAS_CPUID (__i386__ || __x86_64__)
 #if PAL_HAS_CPUID
@@ -393,6 +401,22 @@ extern ProcessIntegrityLevel GetProcessIntegrityLevel();
 /// @returns whether the current process is in an App Container
 extern bool IsProcessInAppContainer();
 #endif
+
+#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 921
+/// Tests whether the passed handle is valid or not.
+/// A handle could be either nullptr or INVALID_HANDLE_VALUE.
+/// INVALID_HANDLE_VALUE is the proper value to set a handle to when you intend to error out.
+/// However, handles default-initialize to nullptr. So that's also a common value you see for an unset handle.
+/// A common error is to check for one value but not the other. So PAL prescribes that clients use this helper.
+constexpr bool IsValidHandle(HANDLE handle)
+{
+#ifdef INVALID_HANDLE_VALUE
+    return (handle != nullptr) && (handle != INVALID_HANDLE_VALUE);
+#else
+    return (handle != nullptr) && (handle != HANDLE(size_t(-1)));
+#endif
+}
+#endif
 #endif
 
 /// Queries system information.
@@ -548,6 +572,27 @@ extern Result MkDir(
 extern Result MkDirRecursively(
     const char* pPathName);
 
+/// A tuple containing a file's name and statistics
+struct StatName
+{
+    File::Stat stat;
+    char name[MaxPathStrLen];
+};
+
+/// Gets file information for the files in a directory
+///
+/// @param [in]  dirPath    string specifying the directory
+/// @param [out] pFileInfos list of information on every file in the directory
+///
+/// @returns Result::ErrorInvalidPointer if any of the input pointers are null
+/// @returns Util::ConvertWinError(GetLastError()) if there are any file I/O errors on Windows
+/// @returns Result::ErrorInvalidValue if there for all file I/O errors on Linux
+/// @returns Result::Success if the dir is empty
+/// @returns Result::Success otherwise
+extern Result GetFileInfoInDir(
+    StringView<char>                       dirPath,
+    Vector<StatName, 1, GenericAllocator>* pFileInfos);
+
 /// Counts the number of files found within the directory.
 ///
 /// @param [in]  pDirPath   string specifying the directory
@@ -578,30 +623,6 @@ extern Result GetFileNamesInDir(
     Util::Span<Util::StringView<char>>  fileNames,
     Util::Span<char>                    buffer);
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 829
-/// Lists the contents of the specified directory in an array of strings
-///
-/// @param [in]     pDirPath    String specifying the directory
-/// @param [in,out] pFileCount  Should never be null. If either ppFileNames or pBuffer is null, pFileCount will output
-///                             the number of files found within the directory. If both ppFileNames and pBuffer are
-///                             non-null, pFileCount will specify the maximum number of file names to be written into
-///                             ppFileNames.
-/// @param [in,out] ppFileNames If non-null and pBuffer is nun-null, ppFileNames will specify an array where pointers
-///                             the file names will be written.
-/// @param [in,out] pBufferSize Should never be null. If either ppFileNames or pBuffer is null, pBufferSize will output
-///                             the minimum buffer size (in bytes) necessary to store all file names found. If both
-///                             ppFileNames and pBuffer are null, pBufferSize will specify the maximum number of bytes
-///                             to be written into pBuffer.
-/// @param [in,out] pBuffer     If non-null and pFileNames is non-null, pBuffer will point to memory where the file
-///                             names can be stored.
-extern Result ListDir(
-    const char*  pDirName,
-    uint32*      pFileCount,
-    const char** ppFileNames,
-    size_t*      pBufferSize,
-    const void*  pBuffer);
-#endif
-
 /// Non-recursively delete the least-recently-accesssed files from a directory until the directory reaches size in bytes.
 ///
 /// @param [in] pPathName   string specifying the absolute path to the directory you want to remove files from
@@ -612,6 +633,19 @@ extern Result ListDir(
 Result RemoveOldestFilesOfDirUntilSize(
     const char* pPathName,
     uint64      desiredSize);
+
+/// Non-recursively delete the least-recently-accesssed files until the total reaches size in bytes.
+///
+/// @param [in]     pDirPath    String specifying the directory.
+/// @param [in/out] pFileInfos  List of files. This span will be modified to remove the files which were deleted.
+/// @param          desiredSize The size you want to shrink the list of files to.
+///
+/// @returns Result::ErrorUnknown on File I/O error.
+///          Result::Success otherwise.
+Result RemoveOldestFilesOfDirUntilSize(
+    StringView<char> dirPath,
+    Span<StatName>*  pFileInfos,
+    uint64           desiredSize);
 
 /// Remove all files below threshold of a directory at the specified path.
 ///
@@ -629,11 +663,6 @@ Result RemoveFilesOfDirOlderThan(
 Result RemoveFilesOfDirOlderThan(
     const char* pPathName,
     uint64      thresholdSeconds);
-#endif
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 814
-// Provide a wrapper using the older name of this function for backwards-compatibility.
-inline Result RemoveFilesOfDir(const char* pPathName, uint64 threshold)
-{ return RemoveFilesOfDirOlderThan(pPathName, threshold); }
 #endif
 
 /// Get status of a directory at the specified path.
@@ -803,4 +832,3 @@ extern bool IsDebuggerAttached();
 extern Result SetRwxFilePermissions(const char* pFileName);
 
 } // Util
-

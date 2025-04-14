@@ -1,7 +1,7 @@
 ##
  #######################################################################################################################
  #
- #  Copyright (c) 2017-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ #  Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  #
  #  Permission is hereby granted, free of charge, to any person obtaining a copy
  #  of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,9 @@
  #  SOFTWARE.
  #
  #######################################################################################################################
-
 cmake_minimum_required(VERSION 3.21)
 project(PAL LANGUAGES CXX)
 add_library(pal INTERFACE)
-
 set_target_properties(pal PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
@@ -34,11 +32,9 @@ set_target_properties(pal PROPERTIES
     POSITION_INDEPENDENT_CODE TRUE
 )
 target_compile_features(pal INTERFACE cxx_std_20)
-
-if (NOT PAL_CLIENT_INTERFACE_MAJOR_VERSION EQUAL 872)
+if (NOT PAL_CLIENT_INTERFACE_MAJOR_VERSION EQUAL 910)
     message(WARNING "PAL: PAL_CLIENT_INTERFACE_MAJOR_VERSION ${PAL_CLIENT_INTERFACE_MAJOR_VERSION} not supported !!!")
 endif()
-
 target_link_libraries(pal
     INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/Release/x64/pal.lib
@@ -75,16 +71,14 @@ target_link_libraries(pal
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/Release/x64/ddYaml.lib
         SetupAPI.Lib
 )
-
 target_compile_definitions(pal
     INTERFACE
-        PAL_CLIENT_INTERFACE_MAJOR_VERSION=872
+        PAL_CLIENT_INTERFACE_MAJOR_VERSION=910
         GPUOPEN_CLIENT_INTERFACE_MAJOR_VERSION=42
         PAL_BUILD_RDF=1
         PAL_DEVELOPER_BUILD=0
         PAL_KMT_BUILD=1
 )
-
 target_include_directories(pal
     INTERFACE
         inc
@@ -92,13 +86,5 @@ target_include_directories(pal
         inc/gpuUtil
         inc/util
         shared/devdriver/shared/legacy/inc
+        shared/metrohash/src
 )
-
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/shared/metrohash/src")
-    target_include_directories(pal INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/shared/metrohash/src)
-elseif (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../../third_party/metrohash/src")
-    target_include_directories(pal INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/../../third_party/metrohash/src)
-else()
-    message(FATAL_ERROR "PAL: No metrohash header file found !!!")
-endif()
-

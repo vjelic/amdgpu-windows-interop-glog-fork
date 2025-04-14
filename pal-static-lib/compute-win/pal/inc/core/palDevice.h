@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -398,11 +398,14 @@ enum InternalSettingScope : uint32
 #if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 888
     PublicCatalystKey  = 0x3,
     PrivatePalGfx9Key  = 0x4,
+    PrivatePalGfx12Key = 0x5,
 #else // PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 888
     PrivatePalGfx6Key  = 0x3,
     PrivatePalGfx9Key  = 0x4,
     PublicCatalystKey  = 0x5,
+    PrivatePalGfx12Key = 0x7,
 #endif
+    PublicPalFile      = 0x9,
 };
 
 /// Enum defining override states for feature settings.
@@ -528,6 +531,34 @@ enum class BufferAlignmentMode : uint8
     Default,  ///< KMD (and therefore PAL) picks alignment requirement. Client should be prepared for anything.
     Dword,    ///< Hardware will automatically align requests to the smaller of: element-size or DWORD.
     Unaligned ///< Any request alignment is allowed.
+};
+
+enum TemporalHintsMrtBehavior : uint8
+{
+    TemporalHintsDynamicRt = 0x0, ///< Enable Dynamic RT Temporal hints. PAL chooses NT vs RT based on heuristics.
+    TemporalHintsStaticRt  = 0x1, ///< Regular temporal for both near and far read/write caches.
+    TemporalHintsStaticNt  = 0x2, ///< Non-temporal (re-use not expected) for both near and far read/write caches.
+};
+
+/// Client-controllable behavior for Gfx12-specific software workaround to HiSZ hardware bug.
+/// Allows the client to override PAL defaults for performance or profiled reasons.
+enum class HiSZWorkaroundBehavior : uint8
+{
+    Default = 0x0,                  ///< Let PAL decide what the default is.
+    ForceDisableAllWar,             ///< Force disable all workarounds.
+                                    ///  Note: This should rarely be chosen and carries an extremely high risk of issue.
+                                    ///        Should only be used when application has been profiled to guarantee no
+                                    ///        risk of issue.
+    ForceHiSZDisableBasedWar,       ///< Force the disable HiZ/S based workaround behavior.
+    ForceHiSZEventBasedWar,         ///< Force the event-after-draw workaround behavior.
+                                    ///  Note: This carries a risk that the hang may still be seen.
+    ForceHiSZDisableBaseWarWithReZ  ///< Force the disable HiZ/S based workaround behavior, but with an added
+                                    ///  optimization to force ZOrder mode to EarlyZThenReZ to reclaim some performance.
+                                    ///  This will apply to all graphics pipelines that trigger the workaround
+                                    ///  condition, except those pipelines that have set
+                                    ///  GraphicsPipelineCreateInfo::noForceReZ. This ZOrder change will occur only when
+                                    ///  HiZ/S is forcibly disabled by the workaround; otherwise the ZOrder remains what
+                                    ///  was chosen by the compiler.
 };
 
 /// Pal settings that are client visible and editable.
@@ -767,11 +798,9 @@ struct PalPublicSettings
     // Instead only allowing GpuHeapInvisible and GpuHeapLocal
     bool forceShaderRingToVMem;
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 818
     /// If the client sets this to true they promise they've done exhaustive testing on every ASIC to prove that this
     /// application can use AC01 fast clears safely. This should never be forced to true unconditionally.
     bool ac01WaNotNeeded;
-#endif
 
     /// Toggles whether or not image copies will prefer using the graphics pipeline. This setting does not force all
     /// copies to use graphics or compute, it changes what method will be selected in cases where either could be used.
@@ -785,6 +814,21 @@ struct PalPublicSettings
     /// Issues resolved by added waits should be root caused.
     uint32 waitOnFlush;
 
+    /// Provides the ability for mall to be alloc-ed/noalloc-ed using the dynamic or static behavior.
+    TemporalHintsMrtBehavior temporalHintsMrtBehavior;
+
+    /// Allows the client to change the behavior of the Gfx12 HW Bug that impacts HiS and HiZ.
+    /// This should never be forced away from default unconditionally.
+    HiSZWorkaroundBehavior hiSZWorkaroundBehavior;
+
+    /// For event-based HiSZ workarounds (Gfx12), specifies the timeouts supported by the Scan Converter and Depth Block
+    /// for their tile summarizer controller.
+    /// Ignored unless @ref hiSZWorkaroundBehavior is set to ForceHiSZEventBasedWar.
+    /// If set to 0, PAL picks a default value.
+    /// Note: Choosing any value other than 0 carries with it **significant risk** of hangs, as the timeout value
+    ///       determined by PAL is the most optimal to avoid the most hangs. Any deviation from the default must be
+    ///       thoroughly tested and is not guaranteed to be safe!
+    uint32 tileSummarizerTimeout;
 };
 
 /// Defines the modes that the GPU Profiling layer can use when its buffer fills.
@@ -833,6 +877,7 @@ enum class SettingScope
 {
     Driver,   ///< For settings specific to a UMD
     Global,   ///< For global settings controlled by CCC
+    File,     ///< For settings that are only read from a file
 };
 
 /// Big Software (BigSW) Release information structure
@@ -916,7 +961,15 @@ enum class RayTracingIpLevel : uint32
     RtIp1_1 = 0x2,   ///< Added computation of triangle barycentrics into HW
     RtIp2_0 = 0x3,   ///< Added more Hardware RayTracing features, such as BoxSort, PointerFlag, etc
 #if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 888
+    RtIp3_0 = 0x4,   ///< Added high precision box node, HW instance node, dual intersect ray, BVH8 intersect ray,
+                     ///  LDS stack push 8 pop 1, and LDS stack push 8 pop 2
+    RtIp3_1 = 0x5,   ///< Added improved bvh footprints (change to node pointer, 128 Byte primitive structure format,
+                     ///  128 Byte Quantized box node, obb support, wide sort)
 #else // PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 888
+    RtIp3_0 = 0x4,     ///< Added high precision box node, HW instance node, dual intersect ray, BVH8 intersect ray,
+                       ///  LDS stack push 8 pop 1, and LDS stack push 8 pop 2
+    RtIp3_1 = 0x6,     ///< Added improved bvh footprints (change to node pointer, 128 Byte primitive structure format,
+                       ///  128 Byte Quantized box node, obb support, wide sort)
 #endif
 };
 
@@ -1032,14 +1085,6 @@ struct DeviceProperties
                 uint32 reserved914                     :  1;
 #endif
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 834
-                /// If true, this engine does not support peer-to-peer copies that target memory in the invisible heap
-                /// on another GPU due to a hardware bug.
-                uint32 p2pCopyToInvisibleHeapIllegal   :  1;
-#else
-                uint32 reserved834                     :  1;
-#endif
-
                 /// Indicates whether the engine supports the command allocator tracks which chunk is idle.
                 uint32 supportsTrackBusyChunks         :  1;
 
@@ -1047,10 +1092,10 @@ struct DeviceProperties
                 uint32 supportsUnmappedPrtPageAccess   :  1;
 
                 /// This engine supports clear or copy with MSAA depth-stencil destination
-                uint32 supportsClearCopyMsaaDsDst : 1;
+                uint32 supportsClearCopyMsaaDsDst      :  1;
 
                 /// Reserved for future use.
-                uint32 reserved                        : 15;
+                uint32 reserved                        : 16;
             };
             uint32 u32All;                  ///< Flags packed as 32-bit uint.
         } flags;                            ///< Engines property flags.
@@ -1196,7 +1241,10 @@ struct DeviceProperties
 
                 /// Support for querying page fault information
                 uint32 supportPageFaultInfo             : 1;
-                uint32 reserved13 : 1;
+                /// Indicates if this device supports GFX12-style distributed compression. Client can control
+                /// whether distributed compression is enabled or not per IGpuMemory object using the
+                /// distributedCompression field in @ref GpuMemoryCreateInfo.
+                uint32 supportDistributedCompression    : 1;
                 /// Reserved for future use.
                 uint32 reserved : 18;
             };
@@ -1327,10 +1375,6 @@ struct DeviceProperties
         uint32 maxGsInvocations;            ///< Maximum number of GS prim instances, corresponding to geometry shader
                                             ///  invocation in glsl.
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 837
-        uint32 dynamicLaunchDescSize; ///< Dynamic launch descriptor size. Zero indicates this feature is not
-                                      /// supported. @ref IPipeline::CreateLaunchDescriptor()
-#endif
         RayTracingIpLevel       rayTracingIp;       ///< HW RayTracing IP version
 
         uint32                  cpUcodeVersion;   ///< Command processor feature version.
@@ -1439,16 +1483,14 @@ struct DeviceProperties
                 uint64 support3dUavZRange                 :  1; ///< HW supports read-write ImageViewSrds of 3D images
                                                                 ///  with zRange specified.
                 uint64 supportCooperativeMatrix           :  1; ///< HW supports cooperative matrix
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 808
                 uint64 support1dDispatchInterleave        :  1; ///< Indicates support for 1D Dispatch Interleave.
-                uint64 placeholder12                      :  1;
-#endif
+                uint64 support2dDispatchInterleave        :  1; ///< Indicates support for 2D Dispatch Interleave.
                 uint64 supportBFloat16                    :  1; ///< HW supports bf16 instructions.
                 uint64 supportFloat8                      :  1; ///< HW supports float 8-bit instructions.
                 uint64 supportInt4                        :  1; ///< HW supports integer 4-bit instructions.
-                uint64 placeholder13                      :  1;
-                uint64 placeholder14                      :  1;
-                uint64 reserved                           :  60; ///< Reserved for future use.
+                uint64 supportCooperativeMatrix2          :  1; ///< HW supports Gfx12 extenson cooperative matrix.
+                uint64 placeholder14                      :  2;
+                uint64 reserved                           :  59; ///< Reserved for future use.
             };
             uint64 u64All[2];           ///< Flags packed as 32-bit uint.
         } flags;                     ///< Device IP property flags.
@@ -1636,7 +1678,7 @@ struct DeviceProperties
         bool   supportQueuePriority;        ///< Support create queue with priority
         bool   supportDynamicQueuePriority; ///< Support set the queue priority through IQueue::SetExecutionPriority
 
-#if PAL_KMT_BUILD
+#if (PAL_KMT_BUILD || PAL_AMDGPU_BUILD)
         bool   supportMemoryBudgetQuery;    ///< Support memory budget query through IDevice::QueryGpuMemoryBudgetInfo
 #endif
 
@@ -1675,11 +1717,12 @@ struct DeviceProperties
         {
             struct
             {
-                uint32 supportPostflip  : 1;  ///< KMD support DirectCapture post-flip access
-                uint32 supportPreflip   : 1;  ///< KMD support DirectCapture pre-flip access
-                uint32 supportRSync     : 1;  ///< KMD support RSync
-                uint32 maxFrameGenRatio : 4;  ///< Maximum frame generation ratio or zero if not supported
-                uint32 reserved         : 25; ///< Reserved for future use.
+                uint32 supportPostflip   : 1;  ///< KMD support DirectCapture post-flip access
+                uint32 supportPreflip    : 1;  ///< KMD support DirectCapture pre-flip access
+                uint32 supportRSync      : 1;  ///< KMD support RSync
+                uint32 maxFrameGenRatio  : 4;  ///< Maximum frame generation ratio or zero if not supported
+                uint32 supportNonPrimary : 1;  ///< KMD support non-primary DirectCapture auxiliary data
+                uint32 reserved          : 24; ///< Reserved for future use.
             };
             uint32 u32All;
         } directCapture;
@@ -1755,15 +1798,14 @@ union FullScreenFrameMetadataControlFlags
         uint32 expandDcc                 :  1; ///< KMD notifies UMD to expand DCC (Output only).
         uint32 enableTurboSyncForDwm     :  1; ///< Indicates DWM should turn on TurboSync(Output only).
         uint32 enableDwmFrameMetadata    :  1; ///< When cleared, no frame metadata should be sent for DWM(Output only).
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 820
         uint32 flipIntervalOverride      :  3; ///< KMD-UMD interface FLIP_INTERVAL_OVERRIDE, for KMD to request flip
                                                ///  interval override from UMD.
-#else
-        uint32 placeholder820            :  3; ///< Reserved for future interface versions
-#endif
         uint32 disableFreeMux            :  1; ///< KMD notifies UMD to disable FreeMux.
         uint32 maxFrameLatency           :  2; ///< KMD can notify UMD to override the frame latency of an app.
-        uint32 reserved                  : 15; ///< Reserved for future use.
+        uint32 sendMotionVectors         :  1; ///< Send the motion vector in CmdBufInfo once per frame
+        uint32 sendDepth                 :  1; ///< Send the depth buffer in CmdBufInfo once per frame
+        uint32 sendCameraMatrix          :  1; ///< Send the camera matrix in CmdBufInfo once per frame
+        uint32 reserved                  : 12; ///< Reserved for future use.
 
     };
     uint32 u32All;    ///< Flags packed as 32-bit uint.
@@ -2076,6 +2118,31 @@ enum class PrtMapAccessType : uint32
     Count
 };
 
+/// Specifies compression behavior for an IImage or image/buffer view.
+enum class CompressionMode : uint32
+{
+    Default                = 0,  ///< Let PAL choose behavior.
+    ReadEnableWriteEnable  = 1,  ///< Override default to force read and write compression on.
+    ReadEnableWriteDisable = 2,  ///< Support reading compressed data, but force any writes to be uncompressed (keeping
+                                 ///  physical metadata consistent).
+    ReadBypassWriteDisable = 3,  ///< Bypass physical metadata on reads (assume decompressed), all writes will be
+                                 ///  uncompressed and will write physical metatdata marking updated blocks as being
+                                 ///  uncompressed. This mode is intended to handle placed resources that do not
+                                 ///  want compression in memory allocations that have distributed compression enabled.
+                                 ///  WARNING: Using this mode to read compressed data will result in corruption.
+    Count,
+};
+
+/// Specifies client compression behavior for an IImage.
+enum class ClientCompressionMode : uint32
+{
+    Default          = 0,  ///< Let implementation decide whether to enable or disable
+    Enable           = 1,  ///< Force enable
+    Disable          = 2,  ///< Force disable
+    DisableClearOnly = 3,  ///< Force enable for all image views except for image clears
+    Count,
+};
+
 /// Specifies parameters for a buffer view descriptor that control how a range of GPU memory is viewed by a shader.
 ///
 /// Input to either CreateTypedBufferViewSrds() or CreateUntypedBufferViewSrds().  Used for any buffer descriptor,
@@ -2091,7 +2158,7 @@ enum class PrtMapAccessType : uint32
 /// _Raw buffer_ and _structured buffer_ SRD's must be created using @ref IDevice::CreateUntypedBufferViewSrds().
 ///
 /// If necessary, PAL will adjust the out of bounds read/write behavior to match the client's API requirements based on
-/// the client defines, etc.
+/// the client defines - PAL_CLIENT_VULKAN, etc.
 ///
 /// @ingroup ResourceBinding
 struct BufferViewInfo
@@ -2103,6 +2170,9 @@ struct BufferViewInfo
     gpusize         stride;         ///< Stride in bytes.  Must be aligned to bytes-per-element for typed access.
     SwizzledFormat  swizzledFormat; ///< Format and channel swizzle for typed access. Must be Undefined for structured
                                     ///  or raw access.
+
+    CompressionMode compressionMode;  ///< Specify GFX12-style distributed compression mode override for this view.
+                                      ///  Only relevant if the backing memory pages enable compression.
 
     union
     {
@@ -2188,6 +2258,12 @@ struct ImageViewInfo
                                  ///  The primary purpose of this flag is to avoid compressed shader writes if a
                                  ///  different usage does not support compression and PAL won't get an opportunity to
                                  ///  decompress it (ie. a transition in a barrier)
+
+    CompressionMode compressionMode;  ///< Specify GFX12-style distributed compression mode override for this view.
+                                      ///  Only relevant if the backing IImage resource and its bound memory pages
+                                      ///  enable compression.
+                                      ///  ReadBypassWriteDisable is only valid if compressionMode in ImageCreateInfo
+                                      ///  disables compressed write.
 
     union
     {
@@ -2345,9 +2421,15 @@ struct BvhInfo
             uint32    bypassMallWrite       :  1;
             uint32    pointerFlags          :  1; ///< If set, flags are encoded in the node pointer bits
 
-            uint32    placeholder2          :  4;
+            uint32    highPrecisionBoxNode  :  1; ///< If set, enable 64-byte high precision box node
+            uint32    wideSort              :  1; ///< If set, enable wide sort
+            uint32    hwInstanceNode        :  1; ///< If set, enable hardware instance node
+            uint32    sortTrianglesFirst    :  1; ///< If set, Pointers to triangle nodes
+                                                  ///  are treated specially during child sorting
 
-            uint32    placeholder4          :  1;
+            uint32    compressedFormatEn    :  1; ///< If set, enable compressed format support. This include enable
+                                                  ///  support for compressed primitive packets, BVH8-128B box nodes,
+                                                  ///  and changes to triangle intersection test return data.
 
             uint32    reserved              :  22; ///< Reserved for future HW
         };
@@ -2959,24 +3041,34 @@ struct ExternalHandleInfo
                                                      ///  name.
     uint32                      accessFlags;         ///< Desried access rights of the object the handle refers to.
 };
+#endif
 
+#if (PAL_KMT_BUILD || PAL_AMDGPU_BUILD)
 /// Gpu heap group enumeration. One heap group contains several pal GpuHeap.
 enum GpuHeapGroup : uint32
 {
-    GpuHeapGroupLocal    = 0x0,    /// Local heap group includes GpuHeapLocal and GpuHeapInvisible.
-    GpuHeapGroupNonLocal = 0x1,    /// NonLocal heap group includes GpuHeapGartUswc and GpuHeapGartCacheable.
+    GpuHeapGroupLocal     = 0x0,    /// Local heap group includes GpuHeapLocal and GpuHeapInvisible on Windows.
+                                    /// But GpuHeapInvisible is not included on Linux.
+    GpuHeapGroupNonLocal  = 0x1,    /// NonLocal heap group includes GpuHeapGartUswc and GpuHeapGartCacheable.
+#if PAL_AMDGPU_BUILD
+    GpuHeapGroupInvisible = 0x2,    /// This is used on Linux as GpuHeapLocal and GpuHeapInvisible are not combined.
+#endif
     GpuHeapGroupCount,
 };
 
 /// Struct for querying current gpu memory usage info and budget info.
 struct GpuMemoryBudgetInfo
 {
-    gpusize usage[GpuHeapGroupCount];    /// Current total memory usage of specified heap group of the device.
-    gpusize budget[GpuHeapGroupCount];   /// Current total memory budget of specified heap group of the device which
-                                         /// implies how much memory the device can allocate from that heap group
-                                         /// before allocations may fail or cause performance degradation, including
-                                         /// all allocated memory. Budget might be affected by OS status and other
-                                         /// processes.
+#if PAL_AMDGPU_BUILD
+    gpusize systemUsage[GpuHeapGroupCount];    /// Current total memory usage of specified heap group of whole system.
+#else
+    gpusize usage[GpuHeapGroupCount];          /// Current total memory usage of specified heap group of current process.
+    gpusize budget[GpuHeapGroupCount];         /// Current total memory budget of specified heap group of the device which
+                                               /// implies how much memory the device can allocate from that heap group
+                                               /// before allocations may fail or cause performance degradation, including
+                                               /// all allocated memory. Budget might be affected by OS status and other
+                                               /// processes.
+#endif
 };
 #endif
 
@@ -3159,33 +3251,6 @@ public:
     virtual Result UnregisterEvent(
         const UnregisterEventInfo& input) = 0;
 
-    /// Read an HMP license from the operating system specific source (e.g. registry).
-    ///
-    /// @param [in,out] pValue   Buffer to copy data into from stored os source. Must be non-null.
-    /// @param [in]     bufferSz Size of binary buffer (pValue).
-    ///
-    /// @returns Success if the license is copied into the binary buffer (pValue) from the stored os location.
-    ///          Otherwise, one of the following errors may be returned:
-    ///          + ErrorInvalidValue if the license could not be copied properly (this is known to be caused by both
-    ///            trying to read a non-existing value, and if the binary buffer size (bufferSz) is not large enough),
-    ///          + ErrorIncompatibleDevice if the device doesn't currently support this feature.
-    virtual Result ReadHmpLicense(
-        void*  pValue,
-        size_t bufferSz) const = 0;
-
-    /// Writes an HMP license to an operating system specific source (e.g. registry).
-    ///
-    /// @param [in,out] pValue   Buffer whose data will be copied to os source license location. Must be non-null.
-    /// @param [in]     bufferSz Size of binary buffer (pValue).
-    ///
-    /// @returns Success if the license is stored into the operating system specific source.  Otherwise, one of the
-    ///          following errors may be returned:
-    ///          + ErrorOutOfMemory if there is not enough memory avaiable to copy the binary buffer (pValue) before
-    ///            storing,
-    ///          + ErrorIncompatibleDevice if the device doesn't currently support this feature.
-    virtual Result WriteHmpLicense(
-        const void* pValue,
-        size_t      bufferSz) const = 0;
 #endif
 
     /// Indicates that the client has finished overriding public settings so the settings struct can be finalized and
@@ -4780,23 +4845,6 @@ public:
     ///          This value will always be non-zero if the device has GfxIp support.
     virtual size_t GetMsaaStateSize() const = 0;
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 855
-    virtual size_t GetMsaaStateSize(
-        const MsaaStateCreateInfo& createInfo,
-        Result*                    pResult
-        ) const
-    {
-        const size_t size = GetMsaaStateSize();
-
-        if (pResult != nullptr)
-        {
-            *pResult = (size > 0) ? Result::Success : Result::ErrorUnknown;
-        }
-
-        return size;
-    }
-#endif
-
     /// Creates an @ref IMsaaState object with the requested properties.
     ///
     /// @param [in]  createInfo      Properties of the MSAA state object to create.
@@ -4823,23 +4871,6 @@ public:
     ///          This value will always be non-zero if the device has GfxIp support.
     virtual size_t GetColorBlendStateSize() const = 0;
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 855
-    virtual size_t GetColorBlendStateSize(
-        const ColorBlendStateCreateInfo& createInfo,
-        Result*                          pResult
-        ) const
-    {
-        const size_t size = GetColorBlendStateSize();
-
-        if (pResult != nullptr)
-        {
-            *pResult = (size > 0) ? Result::Success : Result::ErrorUnknown;
-        }
-
-        return size;
-    }
-#endif
-
     /// Creates an @ref IColorBlendState object with the requested properties.
     ///
     /// @param [in]  createInfo        Properties of the color blend state object to create.
@@ -4865,23 +4896,6 @@ public:
     /// @returns Size, in bytes, of system memory required for an @ref IDepthStencilState object.
     ///          This value will always be non-zero if the device has GfxIp support.
     virtual size_t GetDepthStencilStateSize() const = 0;
-
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 855
-    virtual size_t GetDepthStencilStateSize(
-        const DepthStencilStateCreateInfo& createInfo,
-        Result*                            pResult
-        ) const
-    {
-        const size_t size = GetDepthStencilStateSize();
-
-        if (pResult != nullptr)
-        {
-            *pResult = (size > 0) ? Result::Success : Result::ErrorUnknown;
-        }
-
-        return size;
-    }
-#endif
 
     /// Creates an @ref IDepthStencilState object with the requested properties.
     ///
@@ -5009,7 +5023,9 @@ public:
     virtual Result OpenExternalHandleFromName(
         const ExternalHandleInfo& handleInfo,
         OsExternalHandle*         pHandle) = 0;
+#endif
 
+#if (PAL_KMT_BUILD || PAL_AMDGPU_BUILD)
     /// Query current gpu memory usage info and budget info of specified heap group of the device.
     ///
     /// @param [out]  pInfo                  Heap usage and budget info reported from Os.
@@ -5726,15 +5742,6 @@ public:
         gpusize           codeOffset,
         const IGpuMemory* pTrapHandlerMemory,
         gpusize           memoryOffset) const = 0;
-
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 843
-    inline Result SetHipTrapHandler(
-        const IGpuMemory* pTrapHandlerCode,
-        const IGpuMemory* pTrapHandlerMemory) const
-    {
-        return SetHipTrapHandler(pTrapHandlerCode, 0, pTrapHandlerMemory, 0);
-    }
-#endif
 
 protected:
     /// @internal Constructor. Prevent use of new operator on this interface. Client must create objects by explicitly

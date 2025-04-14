@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -187,6 +187,22 @@ constexpr uint64 ReplicateByteAcrossQword(
     uint8 value)  ///< 8-bit input value.
 {
     return ((static_cast<uint64>(ReplicateByteAcrossDword(value)) << 32) | ReplicateByteAcrossDword(value));
+}
+
+/// Combines four characters into a uint32-based four-character-code "string". There's no null terminator so it's not a
+/// real c-string, it just looks like there's a string if you view the uint in a hex editor or memcmp against a string.
+///
+/// For example, FourCC('A', 'B', 'C', 'D') turns into 0x44434241. 'A' is 0x41 and it ends up in the first byte.
+/// This function assumes we're running on a little endian platform (PAL only supports little-endian platforms).
+///
+/// @returns Returns a uin32 four-character-code made from the given chars.
+constexpr uint32 FourCc(
+    char c1, ///< The 1st character (lowest byte).
+    char c2, ///< The 2nd character.
+    char c3, ///< The 3rd character.
+    char c4) ///< The 4th character (highest byte).
+{
+    return (uint32(c4) << 24) | (uint32(c3) << 16) | (uint32(c2) << 8) | uint32(c1);
 }
 
 /// Returns a bitfield from within some value.
@@ -572,7 +588,7 @@ bool BitMaskScanReverse(
 template <typename T, size_t N>
 bool WideBitMaskScanForward(
     uint32* pIndex,        ///< [out] Index of least-significant '1' bit.  Undefined if input is zero.
-    T       (&mask)[N])    ///< Bit-mask to scan.
+    const T (&mask)[N])    ///< Bit-mask to scan.
 {
     uint32 maskIndex = ((*pIndex) / (sizeof(T) << 3));
 
@@ -606,7 +622,7 @@ bool WideBitMaskScanForward(
 template <typename T, size_t N>
 bool WideBitMaskScanReverse(
     uint32* pIndex,        ///< [out] Index of most-significant '1' bit.  Undefined if input is zero.
-    T       (&mask)[N])    ///< Bit-mask to scan.
+    const T (&mask)[N])    ///< Bit-mask to scan.
 {
     uint32 maskIndex = ((*pIndex) / (sizeof(T) << 3));
 
@@ -914,11 +930,7 @@ inline void Wcsncpy(
 #if defined(_WIN32)
     wcscpy_s(pDst, dstSize, pSrc);
 #else
-#if defined(PAL_SHORT_WCHAR)
-    CopyUtf16String(pDst, pSrc, (dstSize - 1));
-#else
     wcsncpy(pDst, pSrc, (dstSize - 1));
-#endif
     pDst[dstSize - 1] = L'\0';
 #endif
 }
@@ -932,12 +944,8 @@ inline void Wcscat(
 #if defined(_WIN32)
     wcsncat_s(pDst, dstSize, pSrc, _TRUNCATE);
 #else
-    const size_t dstLen = PalWcslen(pDst);
-#if defined(PAL_SHORT_WCHAR)
-    CopyUtf16String(&pDst[dstLen], pSrc, (dstSize - dstLen - 1));
-#else
+    const size_t dstLen = std::wcslen(pDst);
     wcsncat(pDst, pSrc, (dstSize - dstLen - 1));
-#endif
     pDst[dstSize - 1] = L'\0';
 #endif
 }
@@ -1200,8 +1208,9 @@ inline void StringToValueType(
 /// Hashes the provided string using FNV1a hashing (http://www.isthe.com/chongo/tech/comp/fnv/) algorithm.
 ///
 /// @returns 32-bit hash generated from the provided string.
+template <class Char>
 constexpr uint32 HashString(
-    const char* pStr,     ///< [in] String to be hashed.
+    const Char* pStr,     ///< [in] String to be hashed.
     size_t      strSize)  ///< Size of the input string.
 {
     PAL_CONSTEXPR_ASSERT((pStr != nullptr) && (strSize > 0));
@@ -1211,13 +1220,28 @@ constexpr uint32 HashString(
 
     uint32 hash = FnvOffset;
 
-    for (uint32 i = 0; i < strSize; i++)
+    for (size_t i = 0; i < strSize; i++)
     {
-        hash ^= uint8(pStr[i]);
-        hash *= FnvPrime;
+        Char c = pStr[i];
+        for (uint32 j = 0; j < sizeof(Char); ++j)
+        {
+            hash ^= uint8(c);
+            hash *= FnvPrime;
+            c = (c >> 8);
+        }
     }
 
     return hash;
+}
+
+/// Hashes the provided string using FNV1a hashing (http://www.isthe.com/chongo/tech/comp/fnv/) algorithm.
+///
+/// @returns 32-bit hash generated from the provided string.
+template <class Char>
+constexpr uint32 HashString(
+    const Char* pString)
+{
+    return HashString(pString, StringLength(pString));
 }
 
 /// Indicates that an object may be moved from.
@@ -1294,9 +1318,6 @@ inline void Mbstowcs(
 
     result = (retCode != 0) ? false : true;
 #else
-#if defined(PAL_SHORT_WCHAR)
-    result = ConvertCharStringToUtf16(pDst, pSrc, dstSizeInWords);
-#else
     size_t retCode = mbstowcs(pDst, pSrc, dstSizeInWords);
 
     result = (retCode == static_cast<size_t>(-1)) ? false : true;
@@ -1309,7 +1330,6 @@ inline void Mbstowcs(
         // NULL terminate the string.
         pDst[dstSizeInWords - 1] = '\0';
     }
-#endif
 #endif
 
     if (result == false)
@@ -1338,13 +1358,9 @@ inline void Wcstombs(
 
     result = (retCode != 0) ? false : true;
 #else
-#if defined(PAL_SHORT_WCHAR)
-    result = ConvertUtf16StringToUtf8(pDst, pSrc, (dstSizeInBytes - 1));
-#else
     size_t retCode = wcstombs(pDst, pSrc, (dstSizeInBytes - 1));
 
     result = (retCode == static_cast<size_t>(-1)) ? false : true;
-#endif
 #endif
 
     if (result == false)
@@ -1481,32 +1497,24 @@ constexpr typename std::common_type<T1, T2, typename std::common_type<Ts...>::ty
     return Lcm(Lcm(value1, value2), values...);
 }
 
-/// Returns the length of a wchar_t based string.  This function is necessary when specifying the -fshort-wchar option
-/// because the standard library wcslen still interprets its argument using a 4 byte UTF-32 wide character.
+#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 919
+/// Returns the length of a wchar_t based string.
 ///
 /// @returns The length of the given string in wide characters
 inline size_t Wcslen(
     const wchar_t* pWideStr)
 {
-#if defined(PAL_SHORT_WCHAR)
-    return PalWcslen(pWideStr);
-#else
     return wcslen(pWideStr);
-#endif
 }
 
-/// Performs a reverse string find of wide character wc.  This function is necessary when specifying the -fshort-wchar option
-/// because the standard library wcsrchr still interprets its arguments using a 4 byte UTF-32 wide character.
+/// Performs a reverse string find of wide character wc.
 ///
 /// @returns The matching character at the end of the string or nullptr if not found.
 inline wchar_t* Wcsrchr(wchar_t *pStr, wchar_t wc)
 {
-#if defined(PAL_SHORT_WCHAR)
-    return PalWcsrchr(pStr, wc);
-#else
     return wcsrchr(pStr, wc);
-#endif
 }
+#endif
 
 /// Compile-time function to report if two values from unrelated strong enums are equivalent.  This is useful for
 /// static asserts ensuring it is safe to cast an enum without a conversion lookup table.

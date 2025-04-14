@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -106,7 +106,7 @@ struct ExternalQueueSemaphoreOpenInfo
 
     OsExternalHandle externalSemaphore; ///< External shared semaphore handle.
 
-#if (PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 830) && (PAL_CLIENT_INTERFACE_MAJOR_VERSION < 882)
+#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 882
 #if defined(__unix__) && PAL_KMT_BUILD
     uint64           syncFdSignalValue; ///< Signal timeline value when importing the state of a sync file
 #endif
@@ -135,10 +135,8 @@ struct QueueSemaphoreExportInfo
                                                      ///  handle with a name, and then the handle can be acquired
                                                      ///  via this name.
     uint32                      accessFlags;         ///< Desried access rights of GPU memory.
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 830
 #if defined(__unix__)
     uint64                      syncFdWaitValue;     ///< Wait timeline value when exporting the state of a sync file
-#endif
 #endif
 #endif
 };

@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -56,11 +56,7 @@ struct KernelArgument;
 namespace Pal
 {
 struct GpuMemSubAllocInfo;
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 848
 enum class PrimitiveTopology : uint8;
-#else
-enum class PrimitiveTopology : uint32;
-#endif
 
 /// Specifies a shader type (i.e., what stage of the pipeline this shader was written for).
 enum class ShaderType : uint32
@@ -161,10 +157,16 @@ enum class LogicOp : uint32
 ///
 /// The 1D values are specified in Threads and the Threadgroups are walked in a 1D typewriter fashion.
 ///
+/// The 2D values are specified in Threadgroups and also walked in typewriter fashion (in groups of the 2D pattern).
+///
+/// Clients should check for 1D and 2D support separately in:
+///   - DeviceProperties::gfxipProperties::flags::support1dDispatchInterleave
+///   - DeviceProperties::gfxipProperties::flags::support2dDispatchInterleave
+///
+/// Default will result in "Disable" for chips which do not support 1D or 2D.
 /// Disable means that every Threadgroup is issued to the next SE.
 enum class DispatchInterleaveSize : uint32
 {
-#if (PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 823)
     Default,
     Disable,
 
@@ -173,17 +175,27 @@ enum class DispatchInterleaveSize : uint32
     _1D_256_Threads,
     _1D_512_Threads,
 
+    _2D_1x1_ThreadGroups,
+    _2D_1x2_ThreadGroups,
+    _2D_1x4_ThreadGroups,
+    _2D_1x8_ThreadGroups,
+    _2D_1x16_ThreadGroups,
+
+    _2D_2x1_ThreadGroups,
+    _2D_2x2_ThreadGroups,
+    _2D_2x4_ThreadGroups,
+    _2D_2x8_ThreadGroups,
+
+    _2D_4x1_ThreadGroups,
+    _2D_4x2_ThreadGroups,
+    _2D_4x4_ThreadGroups,
+
+    _2D_8x1_ThreadGroups,
+    _2D_8x2_ThreadGroups,
+
+    _2D_16x1_ThreadGroups,
+
     Count,
-
-#else
-    Default               = 0x0,
-    Disable               = 0x1,
-    _128                  = 0x2,
-    _256                  = 0x3,
-    _512                  = 0x4,
-
-    Count
-#endif
 };
 
 /// Specifies whether to override binning setting for pipeline. Enum value of Default follows the PBB global setting.
@@ -217,6 +229,9 @@ enum class DepthClampMode : uint32
 {
     Viewport    = 0x0,  ///< Clamps to the viewport min/max depth bounds
     _None       = 0x1,  ///< Disables depth clamping
+#if PAL_BUILD_SUPPORT_DEPTHCLAMPMODE_ZERO_TO_ONE
+    ZeroToOne   = 0x2,  ///< Clamps between 0.0 and 1.0.
+#endif
 
     // Unfortunately for Linux clients, X.h includes a "#define None 0" macro.  Clients have their choice of either
     // undefing None before including this header or using _None when dealing with PAL.
@@ -231,11 +246,12 @@ union PipelineCreateFlags
     struct
     {
         uint32 clientInternal              :  1; ///< Internal pipeline not created by the application.
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 837
-        uint32 supportDynamicDispatch      :  1; ///< Pipeline will be used with @ref ICmdBuffer::CmdDynamicDispatch.
-#endif
-        uint32 reserved1                   :  1; ///< Reserved.
-        uint32 reserved                    : 29; ///< Reserved for future use.
+        uint32 reverseWorkgroupOrder       :  1; ///< Indicates that any Dispatch using this pipeline should execute in
+                                                 ///  reverse workgroup order. This superceeds the flag on the
+                                                 ///  CommandBuffer (dispatchPingPongWalk) - always forcing
+                                                 ///  reverse workgroup order! This is a best effort as not all
+                                                 ///  implementations or Queues may support this.
+        uint32 reserved                    : 30; ///< Reserved for future use.
     };
     uint32 u32All;                  ///< Flags packed as 32-bit uint.
 };
@@ -312,8 +328,12 @@ struct ComputePipelineCreateInfo
     /// This field is not supported on PAL ABI ELFs, it should be set to all zeros.
     Extent3d            threadsPerGroup;
 
+    TriState groupLaunchGuarantee; ///< Force the group launch guarantee mechanism on or off. This feature will throttle
+                                   ///  issuing of low priority waves when it detects too many higher priority waves are
+                                   ///  failing to schedule due to resource contraints.
     const char*         pKernelName; ///< When create pipeline with hsa ELF binary of multiple kernels, need to set one
                                      ///  kernel to create the pipeline. null means only one kernel in ELF binary.
+
 };
 
 /// Specifies information about the viewport behavior of an assembled graphics pipeline.  Part of the input
@@ -368,11 +388,7 @@ struct RasterizerState
     PsShadingRate forcedShadingRate;      ///< Forced PS shading rate
 #endif
     bool          dx10DiamondTestDisable; ///< Disable DX10 diamond test during line rasterization.
-
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 804
-    EdgeRuleMode    edgeRule;
-#endif
-
+    EdgeRuleMode  edgeRule;
 };
 
 /// Specifies Per-MRT color target info in olor target state
@@ -411,11 +427,9 @@ struct GraphicsPipelineCreateInfo
                                                ///  interface. The Pipeline ELF contains pre-compiled shaders,
                                                ///  register values, and additional metadata.
     size_t              pipelineBinarySize;    ///< Size of Pipeline ELF binary in bytes.
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 816
     const IShaderLibrary** ppShaderLibraries;  ///< An array of graphics @ref IShaderLibrary object. pPipelineBinary
                                                ///  and ppShaderLibraries can't be valid at the same time.
     size_t              numShaderLibraries;    ///< Number of graphics shaderLibrary object in ppShaderLibraries.
-#endif
     bool                useLateAllocVsLimit;   ///< If set, use the specified lateAllocVsLimit instead of PAL internally
                                                ///  determining the limit.
     uint32              lateAllocVsLimit;      ///< The number of VS waves that can be in flight without having param
@@ -457,6 +471,11 @@ struct GraphicsPipelineCreateInfo
                                                    ///  SE before switching to the next one.
     LdsPsGroupSizeOverride ldsPsGroupSizeOverride; ///< Whether to override ldsPsGroupSize setting for pipeline.
 
+    TriState groupLaunchGuarantee; ///< Force the group launch guarantee mechanism on or off. This feature will throttle
+                                   ///  issuing of low priority waves when it detects too many higher priority waves are
+                                   ///  failing to schedule due to resource contraints.
+    bool     noForceReZ;           ///< Disables the ability for PAL to force ReZ modes outside of what was chosen by
+                                   ///  the compiler for this pipeline.
 };
 
 /// The graphic pipeline view instancing information. This is used to determine if hardware accelerated stereo rendering
@@ -692,7 +711,6 @@ public:
         uint32*  pSize,
         void*    pBuffer) const = 0;
 
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 816
     /// Obtains the pointer of code object with ELF format according to the shader type. Returned ELF object is not
     /// guaranteed to be unique with different shader type, because a single code object can contain multiple shaders.
     ///
@@ -703,7 +721,7 @@ public:
     virtual const void* GetCodeObjectWithShaderType(
         ShaderType shaderType,
         size_t*    pSize) const = 0;
-#endif
+
     /// Obtains the shader pre and post compilation stats/params for the specified shader stage.
     ///
     /// @param [in]  shaderType The shader stage for which the stats are requested.
@@ -749,27 +767,6 @@ public:
         Util::Abi::HardwareStage hardwareStage,
         size_t*                  pSize,
         void*                    pBuffer) = 0;
-
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 837
-    /// Creates a new dynamic launch descriptor for this pipeline.  These descriptors are only usable as input to
-    /// @ref ICmdBuffer::CmdDispatchDynamic().  Each launch descriptor acts as a GPU-side "handle" to a pipeline and
-    /// a set of shader libraries it is linked with. The size of the launch descriptor can be queried from
-    /// @ref DeviceProperties. A size of 0 reported in DeviceProperties indicates that this feature is not supported.
-    ///
-    /// Currently only supported on compute pipelines.
-    ///
-    /// @param [in, out] pOut     Launch descriptor to create or update. Must not be null.
-    /// @param [in]      resolve  The launch descriptor contains state from a previous link operation. Need to update
-    ///                           the descriptor during this operation.
-    ///
-    /// @returns Success if the operation was successful.  Other error codes may include:
-    ///          + ErrorUnavailable if called on a graphics pipeline or a pipeline that does not support dynamic
-    ///                             launch. @ref PipelineCreateFlags
-    ///          + ErrorInvalidPointer if pCpuAddr is null.
-    virtual Result CreateLaunchDescriptor(
-        void* pCpuAddr,
-        bool  resolve) { return Result::Unsupported; }
-#endif
 
     /// Notifies PAL that this pipeline may make indirect function calls to any function contained within any of the
     /// specified @ref IShaderLibrary objects.  This gives PAL a chance to perform any late linking steps required to

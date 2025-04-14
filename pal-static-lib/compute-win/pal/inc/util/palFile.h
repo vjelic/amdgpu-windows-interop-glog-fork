@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -31,12 +31,40 @@
 
 #pragma once
 
+// pal
 #include "palUtil.h"
 #include "palInlineFuncs.h"
+
+// stl
+#include <chrono>
 #include <cstdio>
+
+#if defined(_WIN32)
+/// Macro for wide string literal concatenation.
+#define PAL_PATH_SEPW L"\\"
+/// Macro for narrow string literal concatenation.
+#define PAL_PATH_SEP "\\"
+#else
+/// Macro for wide string literal concatenation.
+#define PAL_PATH_SEPW L"/"
+/// Macro for narrow string literal concatenation.
+#define PAL_PATH_SEP "/"
+#endif
 
 namespace Util
 {
+#if defined(_WIN32)
+/// Wide-character of the platform's prefered path separator.
+static constexpr wchar_t PathSepW = L'\\';
+/// Narrow-character of the platform's prefered path separator.
+static constexpr  char   PathSep = '\\';
+#else
+/// Wide-character of the platform's prefered path separator.
+static constexpr wchar_t PathSepW = L'/';
+/// Narrow-character of the platform's prefered path separator.
+static constexpr  char   PathSep = '/';
+#endif
+
 static constexpr uint32 MaxPathStrLen = 512;
 static constexpr uint32 MaxFileNameStrLen = 256;
 
@@ -64,13 +92,19 @@ public:
     // Platform-agnostic 64-bit stat structure.
     struct Stat
     {
-        uint64  size;   // Size of the file in bytes.
-        uint64  ctime;  // Time of creation of the file (not valid on FAT).
-        uint64  atime;  // Time of last access to the file (not valid on FAT).
-        uint64  mtime;  // Time of last modification to the file.
-        uint32  nlink;  // Number of hard links (always 1 on FAT on Windows).
-        uint32  mode;   // Bitmask for the file-mode information.
-        uint32  dev;    // Drive number of the disk containing the file.
+        uint64                                size;  // Size of the file in bytes.
+#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 922
+        uint64                                ctime; // Time of creation of the file (not valid on FAT).
+        uint64                                atime; // Time of last access to the file (not valid on FAT).
+        uint64                                mtime; // Time of last modification to the file.
+#else
+        std::chrono::system_clock::time_point ctime; // Time of creation of the file (not valid on FAT).
+        std::chrono::system_clock::time_point atime; // Time of last access to the file (not valid on FAT).
+        std::chrono::system_clock::time_point mtime; // Time of last modification to the file.
+#endif
+        uint32                                nlink; // Number of hard links (always 1 on FAT on Windows).
+        uint32                                mode;  // Bitmask for the file-mode information.
+        uint32                                dev;   // Drive number of the disk containing the file.
 
         union
         {

@@ -1,7 +1,7 @@
 /*
  ***********************************************************************************************************************
  *
- *  Copyright (c) 2014-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ *  Copyright (c) 2014-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -40,32 +40,16 @@
 ///
 /// @attention Updates to the major version indicate an interface change that is not backward compatible and may require
 ///            action from each client during their next integration.  When determining if a change is backward
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 831
 ///            compatible, it is assumed that the client will default-initialize all structs.
-#else
-///            compatible, it is not assumed that the client will initialize all input structs to 0.
-#endif
 ///
 /// @ingroup LibInit
-#define PAL_INTERFACE_MAJOR_VERSION 914
-
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 831
-/// Minor interface version.  Note that the interface version is distinct from the PAL version itself, which is returned
-/// in @ref Pal::PlatformProperties.
-///
-/// The minor version is incremented on any change to the PAL interface that is backward compatible which is limited to
-/// adding new function, adding a new type (enum, struct, class, etc.), and adding a new value to an enum such that none
-/// of the existing enum values will change.  This number will be reset to 0 when the major version is incremented.
-///
-/// @ingroup LibInit
-#define PAL_INTERFACE_MINOR_VERSION 0
-#endif
+#define PAL_INTERFACE_MAJOR_VERSION 922
 
 /// Minimum major interface version. This is the minimum interface version PAL supports in order to support backward
 /// compatibility. When it is equal to PAL_INTERFACE_MAJOR_VERSION, only the latest interface version is supported.
 ///
 /// @ingroup LibInit
-#define PAL_MINIMUM_INTERFACE_MAJOR_VERSION 803
+#define PAL_MINIMUM_INTERFACE_MAJOR_VERSION 856
 
 /// Minimum supported major interface version for devdriver library. This is the minimum interface version of the
 /// devdriver library that PAL is backwards compatible to.
@@ -85,11 +69,7 @@
  * @hideinitializer
  ***********************************************************************************************************************
  */
-#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 831
 #define PAL_INTERFACE_VERSION (PAL_INTERFACE_MAJOR_VERSION << 16)
-#else
-#define PAL_INTERFACE_VERSION ((PAL_INTERFACE_MAJOR_VERSION << 16) | PAL_INTERFACE_MINOR_VERSION)
-#endif
 
 namespace Pal
 {
@@ -128,7 +108,7 @@ enum class NullGpuId : uint32
     Phoenix2,      ///< 11.0.3
     Strix1,        ///< 11.5.0
     StrixHalo,     ///< 11.5.1
-    Krackan1,      ///< 11.5.2
+    Navi48,        ///< 12.0.1
 #if  (PAL_CLIENT_INTERFACE_MAJOR_VERSION>= 888)
 #endif
     Max,           ///< The maximum count of null devices.
@@ -151,6 +131,7 @@ enum class GfxIpLevel : uint32
     GfxIp10_3,     ///< GFXIP 10.3 (Navi2x, Rembrandt, Raphael, Mendocino)
     GfxIp11_0,     ///< GFXIP 11.0 (Navi3x, Phoenix)
     GfxIp11_5,     ///< GFXIP 11.5 (Strix)
+    GfxIp12,       ///< GFXIP 12.0 (Navi4x)
 #else // PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 888
     GfxIp6    = 0x1,
     GfxIp7    = 0x2,
@@ -161,6 +142,7 @@ enum class GfxIpLevel : uint32
     GfxIp10_3 = 0x9,
     GfxIp11_0 = 0xC,
     GfxIp11_5 = 0xF,
+    GfxIp12   = 0x11,
 #endif
 };
 
@@ -216,8 +198,8 @@ enum class AsicRevision : uint32
     Phoenix2         = 0x38, ///< 11.0.3
     HawkPoint1       = 0x39, ///< 11.0.3
     HawkPoint2       = 0x3A, ///< 11.0.3
-    Krackan1         = 0x3B, ///< 11.5.2
     StrixHalo        = 0x3C, ///< 11.5.1
+    Navi48           = 0x3E, ///< 12.0.1
 };
 
 /// Maps a null GPU ID to its associated text name.
@@ -241,6 +223,7 @@ struct GpuInfo
     const char*  pGpuName;    ///< Name string of the ASIC (e.g., "NAVI10").
 };
 
+#if PAL_CLIENT_INTERFACE_MAJOR_VERSION < 915
 /// PAL client APIs.
 enum class ClientApi : uint32
 {
@@ -252,6 +235,16 @@ enum class ClientApi : uint32
     Hip     = 8,
     Amf     = 9,
 };
+#else
+/// The client UMD must identify its API using this enum. Some UMD builds may implement multiple APIs so they must
+/// specify which API they're implementing at runtime. Note that the PAL_CLIENT macros are the preferred way to
+/// implement client-specific behavior; runtime ClientApi checks should only be used when necessary.
+enum class ClientApi : uint32
+{
+    OpenCl,
+    Hip
+};
+#endif
 
 /// Specifies properties for @ref IPlatform creation. Input structure to Pal::CreatePlatform().
 struct PlatformCreateInfo
@@ -305,6 +298,10 @@ struct PlatformCreateInfo
                            ///  contract with RGP.
     uint16    apiMinorVer; ///< Minor API version number to be used by RGP. Should be set by client based on their
                            ///  contract with RGP.
+#if PAL_CLIENT_INTERFACE_MAJOR_VERSION >= 916
+    uint32    instrApiVer; ///  Instrumentation specification version for API-specific SQTT instrumentation fields.
+                           ///  Should be set by client based on the SQTT instrumentation spec version being targeted.
+#endif
     gpusize   maxSvmSize;  ///< Maximum amount of virtual address space that will be reserved for SVM
 };
 
