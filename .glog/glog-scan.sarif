@@ -1,0 +1,2859 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Glog.AI",
+          "organization": "Glog.AI",
+          "fullName": "Glog, Making software more secure",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "informationUri": "https://www.glog.ai",
+          "rules": [
+            {
+              "id": "glog-b3596d58-3912-4541-881c-cc54675ac384",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-4a7a3906-12bb-46a3-84ce-e440dec0d604",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-c22d5b94-7a57-42fb-a4d4-113a7a71c893",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-56d79a60-9e1e-4a11-b50c-647d70eec354",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-e707911d-7125-4f2b-a609-1f8ec93f2ab6",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-8a86ca76-1ab0-4b71-a9c3-d2ea38cb2620",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-dd02b643-8b15-4ea4-b480-b3c5bce2f8cd",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-0a199f0f-1802-4704-81a4-2e789e5b4c32",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-fc95af00-9912-4554-8197-221612c76ae5",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-2f7be2ca-30a4-4a7f-9ea9-ec4f764cc066",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-a9454d5f-4b97-4b7f-bdb1-6a43c0c5099c",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-9a331035-4379-450a-aa03-39731e62a994",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS161085"
+                ]
+              }
+            },
+            {
+              "id": "glog-841a8535-3674-4f10-b4bc-796d92f80aa0",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-19432bc0-de65-4bfe-99d7-dce1dfc04466",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS161085"
+                ]
+              }
+            },
+            {
+              "id": "glog-5f356e33-8d64-41eb-b593-df09ff22c4ee",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-f54131fa-3a64-4620-85bc-5d8155a82fa0",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-83d6cbbf-2aaa-4a40-9192-e19e1944cf32",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS137138"
+                ]
+              }
+            },
+            {
+              "id": "glog-bddd6159-dcda-498d-bbe0-8e2a3a061ddd",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-a549718e-e879-4a0e-858c-ec7b1cbbefb8",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-06d58f62-0007-4b05-8ab6-20315ae3e2f6",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-5d47e830-d3fc-4710-8aa1-9b4f463129e8",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-ddf81e14-c34c-49f9-86f2-1c87f57d1424",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-e561143d-8451-4358-b759-f521e4b435f9",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-c1698f84-87c2-4d2b-aaba-19139da1be1e",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-5c8232d6-2445-493e-95ee-4822b65895f1",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-733b1dfd-cd3d-49f0-bfd5-bb1c6a444b2e",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-3512575a-897f-4160-b158-4ab8f7c71785",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS173237"
+                ]
+              }
+            },
+            {
+              "id": "glog-d5ff8506-5ff0-4e47-b804-da1502632bb9",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-251fd051-f9e9-4e21-87e8-2e99ecffccfe",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS137138"
+                ]
+              }
+            },
+            {
+              "id": "glog-cdbf5758-6b60-4b8e-a8d9-8ef50cbc3d6f",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS117838"
+                ]
+              }
+            },
+            {
+              "id": "glog-fc0ea905-de4f-40e2-a465-d79581eb6d9a",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-dd3c681a-608b-420a-98e1-9b861703c093",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-fabebf85-ce56-476e-b1d4-cf05fb00b051",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-2632f683-1309-4a34-aea4-f32bed59903d",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-dfe9865f-7312-41cf-9a16-7ebb7324de61",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            }
+          ],
+          "language": "en-US",
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "isComprehensive": false
+        }
+      },
+      "language": "en-US",
+      "results": [
+        {
+          "ruleId": "glog-b3596d58-3912-4541-881c-cc54675ac384",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 927,
+                  "startColumn": 8,
+                  "endLine": 927,
+                  "endColumn": 46,
+                  "charOffset": 37284,
+                  "charLength": 38,
+                  "snippet": {
+                    "text": "memcpy(svalue, isa.c_str(), (std::min)",
+                    "rendered": {
+                      "text": "memcpy(svalue, isa.c_str(), (std::min)",
+                      "markdown": "`memcpy(svalue, isa.c_str(), (std::min)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 37284,
+                        "charLength": 38
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(svalue, <size of svalue>,  isa.c_str(),  (std::min)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-82a30213-369c-43c7-b939-910cc449f962",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 917,
+                  "startColumn": 8,
+                  "endLine": 917,
+                  "endColumn": 50,
+                  "charOffset": 36853,
+                  "charLength": 42,
+                  "snippet": {
+                    "text": "memcpy(svalue, version.c_str(), (std::min)",
+                    "rendered": {
+                      "text": "memcpy(svalue, version.c_str(), (std::min)",
+                      "markdown": "`memcpy(svalue, version.c_str(), (std::min)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 36853,
+                        "charLength": 42
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(svalue, <size of svalue>,  version.c_str(),  (std::min)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-88630cd4-dcc9-4829-b025-d30567433118",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 882,
+                  "startColumn": 6,
+                  "endLine": 882,
+                  "endColumn": 70,
+                  "charOffset": 35550,
+                  "charLength": 64,
+                  "snippet": {
+                    "text": "memcpy(desc->producer_options, options.c_str(), options.length()",
+                    "rendered": {
+                      "text": "memcpy(desc->producer_options, options.c_str(), options.length()",
+                      "markdown": "`memcpy(desc->producer_options, options.c_str(), options.length()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 35550,
+                        "charLength": 64
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(desc->producer_options, <size of desc->producer_options>,  options.c_str(),  options.length()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-4a7a3906-12bb-46a3-84ce-e440dec0d604",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 863,
+                  "startColumn": 6,
+                  "endLine": 863,
+                  "endColumn": 69,
+                  "charOffset": 34685,
+                  "charLength": 63,
+                  "snippet": {
+                    "text": "memcpy(desc->producer_name, producer.c_str(), producer.length()",
+                    "rendered": {
+                      "text": "memcpy(desc->producer_name, producer.c_str(), producer.length()",
+                      "markdown": "`memcpy(desc->producer_name, producer.c_str(), producer.length()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 34685,
+                        "charLength": 63
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(desc->producer_name, <size of desc->producer_name>,  producer.c_str(),  producer.length()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-c22d5b94-7a57-42fb-a4d4-113a7a71c893",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 148,
+                  "startColumn": 10,
+                  "endLine": 148,
+                  "endColumn": 61,
+                  "charOffset": 4717,
+                  "charLength": 51,
+                  "snippet": {
+                    "text": "memcpy(value, ModuleName.c_str(), ModuleName.size()",
+                    "rendered": {
+                      "text": "memcpy(value, ModuleName.c_str(), ModuleName.size()",
+                      "markdown": "`memcpy(value, ModuleName.c_str(), ModuleName.size()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 4717,
+                        "charLength": 51
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(value, <size of value>,  ModuleName.c_str(),  ModuleName.size()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-56d79a60-9e1e-4a11-b50c-647d70eec354",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 540,
+                  "startColumn": 6,
+                  "endLine": 540,
+                  "endColumn": 90,
+                  "charOffset": 17722,
+                  "charLength": 84,
+                  "snippet": {
+                    "text": "memcpy(desc->vendor_and_architecture_name, vendor_name.c_str(), vendor_name.length()",
+                    "rendered": {
+                      "text": "memcpy(desc->vendor_and_architecture_name, vendor_name.c_str(), vendor_name.length()",
+                      "markdown": "`memcpy(desc->vendor_and_architecture_name, vendor_name.c_str(), vendor_name.length()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 17722,
+                        "charLength": 84
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(desc->vendor_and_architecture_name, <size of desc->vendor_and_architecture_name>,  vendor_name.c_str(),  vendor_name.length()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-e707911d-7125-4f2b-a609-1f8ec93f2ab6",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 541,
+                  "startColumn": 6,
+                  "endLine": 541,
+                  "endColumn": 127,
+                  "charOffset": 17819,
+                  "charLength": 121,
+                  "snippet": {
+                    "text": "memcpy(desc->vendor_and_architecture_name + desc->vendor_name_size, architecture_name.c_str(), architecture_name.length()",
+                    "rendered": {
+                      "text": "memcpy(desc->vendor_and_architecture_name + desc->vendor_name_size, architecture_name.c_str(), architecture_name.length()",
+                      "markdown": "`memcpy(desc->vendor_and_architecture_name + desc->vendor_name_size, architecture_name.c_str(), architecture_name.length()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 17819,
+                        "charLength": 121
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(desc->vendor_and_architecture_name + desc->vendor_name_size, <size of desc->vendor_and_architecture_name + desc->vendor_name_size>,  architecture_name.c_str(),  architecture_name.length()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-8a86ca76-1ab0-4b71-a9c3-d2ea38cb2620",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                },
+                "region": {
+                  "startLine": 138,
+                  "startColumn": 10,
+                  "endLine": 138,
+                  "endColumn": 61,
+                  "charOffset": 4337,
+                  "charLength": 51,
+                  "snippet": {
+                    "text": "memcpy(value, SymbolName.c_str(), SymbolName.size()",
+                    "rendered": {
+                      "text": "memcpy(value, SymbolName.c_str(), SymbolName.size()",
+                      "markdown": "`memcpy(value, SymbolName.c_str(), SymbolName.size()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_hsa_code.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 4337,
+                        "charLength": 51
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(value, <size of value>,  SymbolName.c_str(),  SymbolName.size()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-dd02b643-8b15-4ea4-b480-b3c5bce2f8cd",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/sc/HSAIL/ext/loader/loaders.cpp"
+                },
+                "region": {
+                  "startLine": 213,
+                  "startColumn": 4,
+                  "endLine": 213,
+                  "endColumn": 44,
+                  "charOffset": 6729,
+                  "charLength": 40,
+                  "snippet": {
+                    "text": "memcpy((char *) dst + offset, src, size)",
+                    "rendered": {
+                      "text": "memcpy((char *) dst + offset, src, size)",
+                      "markdown": "`memcpy((char *) dst + offset, src, size)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/sc/HSAIL/ext/loader/loaders.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 6729,
+                        "charLength": 40
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s((char *) dst + offset, <size of (char *) dst + offset>,  src,  size)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-0a199f0f-1802-4704-81a4-2e789e5b4c32",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/sc/HSAIL/ext/loader/executable.cpp"
+                },
+                "region": {
+                  "startLine": 476,
+                  "startColumn": 6,
+                  "endLine": 476,
+                  "endColumn": 59,
+                  "charOffset": 15235,
+                  "charLength": 53,
+                  "snippet": {
+                    "text": "memcpy(value, module_name.c_str(), module_name.size()",
+                    "rendered": {
+                      "text": "memcpy(value, module_name.c_str(), module_name.size()",
+                      "markdown": "`memcpy(value, module_name.c_str(), module_name.size()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/sc/HSAIL/ext/loader/executable.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 15235,
+                        "charLength": 53
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(value, <size of value>,  module_name.c_str(),  module_name.size()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-fc95af00-9912-4554-8197-221612c76ae5",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/sc/HSAIL/ext/loader/executable.cpp"
+                },
+                "region": {
+                  "startLine": 467,
+                  "startColumn": 6,
+                  "endLine": 467,
+                  "endColumn": 59,
+                  "charOffset": 14944,
+                  "charLength": 53,
+                  "snippet": {
+                    "text": "memcpy(value, symbol_name.c_str(), symbol_name.size()",
+                    "rendered": {
+                      "text": "memcpy(value, symbol_name.c_str(), symbol_name.size()",
+                      "markdown": "`memcpy(value, symbol_name.c_str(), symbol_name.size()`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/sc/HSAIL/ext/loader/executable.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14944,
+                        "charLength": 53
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(value, <size of value>,  symbol_name.c_str(),  symbol_name.size()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-2f7be2ca-30a4-4a7f-9ea9-ec4f764cc066",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                },
+                "region": {
+                  "startLine": 1536,
+                  "startColumn": 8,
+                  "endLine": 1536,
+                  "endColumn": 40,
+                  "charOffset": 54707,
+                  "charLength": 32,
+                  "snippet": {
+                    "text": "memcpy(*buf, buffer, bufferSize)",
+                    "rendered": {
+                      "text": "memcpy(*buf, buffer, bufferSize)",
+                      "markdown": "`memcpy(*buf, buffer, bufferSize)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 54707,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(*buf, <size of *buf>,  buffer,  bufferSize)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-a9454d5f-4b97-4b7f-bdb1-6a43c0c5099c",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                },
+                "region": {
+                  "startLine": 1548,
+                  "startColumn": 8,
+                  "endLine": 1548,
+                  "endColumn": 39,
+                  "charOffset": 55012,
+                  "charLength": 31,
+                  "snippet": {
+                    "text": "memcpy(buf, buffer, bufferSize)",
+                    "rendered": {
+                      "text": "memcpy(buf, buffer, bufferSize)",
+                      "markdown": "`memcpy(buf, buffer, bufferSize)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 55012,
+                        "charLength": 31
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(buf, <size of buf>,  buffer,  bufferSize)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-9a331035-4379-450a-aa03-39731e62a994",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                },
+                "region": {
+                  "startLine": 1535,
+                  "startColumn": 15,
+                  "endLine": 1535,
+                  "endColumn": 33,
+                  "charOffset": 54679,
+                  "charLength": 18,
+                  "snippet": {
+                    "text": "malloc(bufferSize)",
+                    "rendered": {
+                      "text": "malloc(bufferSize)",
+                      "markdown": "`malloc(bufferSize)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 54679,
+                        "charLength": 18
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-841a8535-3674-4f10-b4bc-796d92f80aa0",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                },
+                "region": {
+                  "startLine": 998,
+                  "startColumn": 10,
+                  "endLine": 998,
+                  "endColumn": 76,
+                  "charOffset": 37537,
+                  "charLength": 66,
+                  "snippet": {
+                    "text": "memcpy(dest, (const char*) edata->d_buf + offset - coffset, csize)",
+                    "rendered": {
+                      "text": "memcpy(dest, (const char*) edata->d_buf + offset - coffset, csize)",
+                      "markdown": "`memcpy(dest, (const char*) edata->d_buf + offset - coffset, csize)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 37537,
+                        "charLength": 66
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(dest, <size of dest>,  (const char*) edata->d_buf + offset - coffset,  csize)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-19432bc0-de65-4bfe-99d7-dce1dfc04466",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                },
+                "region": {
+                  "startLine": 266,
+                  "startColumn": 22,
+                  "endLine": 266,
+                  "endColumn": 35,
+                  "charOffset": 8119,
+                  "charLength": 13,
+                  "snippet": {
+                    "text": "malloc(size1)",
+                    "rendered": {
+                      "text": "malloc(size1)",
+                      "markdown": "`malloc(size1)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250515a/sc/HSAIL/ext/libamdhsacode/amd_elf_image.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8119,
+                        "charLength": 13
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-5f356e33-8d64-41eb-b593-df09ff22c4ee",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128crc.cpp"
+                },
+                "region": {
+                  "startLine": 175,
+                  "startColumn": 4,
+                  "endLine": 175,
+                  "endColumn": 22,
+                  "charOffset": 5745,
+                  "charLength": 18,
+                  "snippet": {
+                    "text": "memcpy(out, v, 16)",
+                    "rendered": {
+                      "text": "memcpy(out, v, 16)",
+                      "markdown": "`memcpy(out, v, 16)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128crc.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 5745,
+                        "charLength": 18
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(out, <size of out>,  v,  16)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-f54131fa-3a64-4620-85bc-5d8155a82fa0",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128crc.cpp"
+                },
+                "region": {
+                  "startLine": 99,
+                  "startColumn": 4,
+                  "endLine": 99,
+                  "endColumn": 22,
+                  "charOffset": 3269,
+                  "charLength": 18,
+                  "snippet": {
+                    "text": "memcpy(out, v, 16)",
+                    "rendered": {
+                      "text": "memcpy(out, v, 16)",
+                      "markdown": "`memcpy(out, v, 16)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128crc.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 3269,
+                        "charLength": 18
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(out, <size of out>,  v,  16)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-83d6cbbf-2aaa-4a40-9192-e19e1944cf32",
+          "kind": "fail",
+          "level": "warning",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128crc.cpp"
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 7,
+                  "endLine": 9,
+                  "endColumn": 28,
+                  "charOffset": 257,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "http://www.apache.org",
+                    "rendered": {
+                      "text": "http://www.apache.org",
+                      "markdown": "`http://www.apache.org`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "An HTTP-based URL without TLS was detected."
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128crc.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 257,
+                        "charLength": 21
+                      },
+                      "insertedContent": {
+                        "text": "https://www.apache.org"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "ThreatModel.Integration.HTTP"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-bddd6159-dcda-498d-bbe0-8e2a3a061ddd",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 416,
+                  "startColumn": 4,
+                  "endLine": 416,
+                  "endColumn": 22,
+                  "charOffset": 14782,
+                  "charLength": 18,
+                  "snippet": {
+                    "text": "memcpy(out, v, 16)",
+                    "rendered": {
+                      "text": "memcpy(out, v, 16)",
+                      "markdown": "`memcpy(out, v, 16)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14782,
+                        "charLength": 18
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(out, <size of out>,  v,  16)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-a549718e-e879-4a0e-858c-ec7b1cbbefb8",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 251,
+                  "startColumn": 79,
+                  "endLine": 251,
+                  "endColumn": 112,
+                  "charOffset": 9105,
+                  "charLength": 33,
+                  "snippet": {
+                    "text": "strlen(MetroHash128::test_string)",
+                    "rendered": {
+                      "text": "strlen(MetroHash128::test_string)",
+                      "markdown": "`strlen(MetroHash128::test_string)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 9105,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 9105,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-06d58f62-0007-4b05-8ab6-20315ae3e2f6",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 256,
+                  "startColumn": 79,
+                  "endLine": 256,
+                  "endColumn": 112,
+                  "charOffset": 9344,
+                  "charLength": 33,
+                  "snippet": {
+                    "text": "strlen(MetroHash128::test_string)",
+                    "rendered": {
+                      "text": "strlen(MetroHash128::test_string)",
+                      "markdown": "`strlen(MetroHash128::test_string)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 9344,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 9344,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-5d47e830-d3fc-4710-8aa1-9b4f463129e8",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 338,
+                  "startColumn": 4,
+                  "endLine": 338,
+                  "endColumn": 22,
+                  "charOffset": 12127,
+                  "charLength": 18,
+                  "snippet": {
+                    "text": "memcpy(out, v, 16)",
+                    "rendered": {
+                      "text": "memcpy(out, v, 16)",
+                      "markdown": "`memcpy(out, v, 16)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 12127,
+                        "charLength": 18
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(out, <size of out>,  v,  16)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-ddf81e14-c34c-49f9-86f2-1c87f57d1424",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 244,
+                  "startColumn": 28,
+                  "endLine": 244,
+                  "endColumn": 61,
+                  "charOffset": 8817,
+                  "charLength": 33,
+                  "snippet": {
+                    "text": "strlen(MetroHash128::test_string)",
+                    "rendered": {
+                      "text": "strlen(MetroHash128::test_string)",
+                      "markdown": "`strlen(MetroHash128::test_string)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8817,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8817,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-e561143d-8451-4358-b759-f521e4b435f9",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 158,
+                  "startColumn": 4,
+                  "endLine": 158,
+                  "endColumn": 29,
+                  "charOffset": 5932,
+                  "charLength": 25,
+                  "snippet": {
+                    "text": "memcpy(hash, state.v, 16)",
+                    "rendered": {
+                      "text": "memcpy(hash, state.v, 16)",
+                      "markdown": "`memcpy(hash, state.v, 16)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 5932,
+                        "charLength": 25
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(hash, <size of hash>,  state.v,  16)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-c1698f84-87c2-4d2b-aaba-19139da1be1e",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 231,
+                  "startColumn": 4,
+                  "endLine": 231,
+                  "endColumn": 23,
+                  "charOffset": 8423,
+                  "charLength": 19,
+                  "snippet": {
+                    "text": "memcpy(hash, v, 16)",
+                    "rendered": {
+                      "text": "memcpy(hash, v, 16)",
+                      "markdown": "`memcpy(hash, v, 16)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8423,
+                        "charLength": 19
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(hash, <size of hash>,  v,  16)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-5c8232d6-2445-493e-95ee-4822b65895f1",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 241,
+                  "startColumn": 28,
+                  "endLine": 241,
+                  "endColumn": 61,
+                  "charOffset": 8671,
+                  "charLength": 33,
+                  "snippet": {
+                    "text": "strlen(MetroHash128::test_string)",
+                    "rendered": {
+                      "text": "strlen(MetroHash128::test_string)",
+                      "markdown": "`strlen(MetroHash128::test_string)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8671,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8671,
+                        "charLength": 33
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(MetroHash128::test_string, <size of MetroHash128::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-733b1dfd-cd3d-49f0-bfd5-bb1c6a444b2e",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 8,
+                  "endLine": 71,
+                  "endColumn": 69,
+                  "charOffset": 2327,
+                  "charLength": 61,
+                  "snippet": {
+                    "text": "memcpy(input.b + (bytes % 32), ptr, static_cast<size_t>(fill)",
+                    "rendered": {
+                      "text": "memcpy(input.b + (bytes % 32), ptr, static_cast<size_t>(fill)",
+                      "markdown": "`memcpy(input.b + (bytes % 32), ptr, static_cast<size_t>(fill)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 2327,
+                        "charLength": 61
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(input.b + (bytes % 32), <size of input.b + (bytes % 32)>,  ptr,  static_cast<size_t>(fill)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-3512575a-897f-4160-b158-4ab8f7c71785",
+          "kind": "fail",
+          "level": "error",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 41,
+                  "endLine": 26,
+                  "endColumn": 106,
+                  "charOffset": 836,
+                  "charLength": 65,
+                  "snippet": {
+                    "text": "\"012345678901234567890123456789012345678901234567890123456789012\"",
+                    "rendered": {
+                      "text": "\"012345678901234567890123456789012345678901234567890123456789012\"",
+                      "markdown": "`\"012345678901234567890123456789012345678901234567890123456789012\"`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Important",
+            "DevSkimConfidence": "Medium",
+            "tags": [
+              "Implementation.Privacy.Token"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-d5ff8506-5ff0-4e47-b804-da1502632bb9",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 8,
+                  "endLine": 98,
+                  "endColumn": 39,
+                  "charOffset": 3656,
+                  "charLength": 31,
+                  "snippet": {
+                    "text": "memcpy(input.b, ptr, end - ptr)",
+                    "rendered": {
+                      "text": "memcpy(input.b, ptr, end - ptr)",
+                      "markdown": "`memcpy(input.b, ptr, end - ptr)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 3656,
+                        "charLength": 31
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(input.b, <size of input.b>,  ptr,  end - ptr)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-251fd051-f9e9-4e21-87e8-2e99ecffccfe",
+          "kind": "fail",
+          "level": "warning",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 7,
+                  "endLine": 9,
+                  "endColumn": 28,
+                  "charOffset": 254,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "http://www.apache.org",
+                    "rendered": {
+                      "text": "http://www.apache.org",
+                      "markdown": "`http://www.apache.org`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "An HTTP-based URL without TLS was detected."
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash128.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 254,
+                        "charLength": 21
+                      },
+                      "insertedContent": {
+                        "text": "https://www.apache.org"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "ThreatModel.Integration.HTTP"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-cdbf5758-6b60-4b8e-a8d9-8ef50cbc3d6f",
+          "kind": "fail",
+          "level": "error",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/testvector.h"
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 25,
+                  "endLine": 38,
+                  "endColumn": 98,
+                  "charOffset": 1148,
+                  "charLength": 73,
+                  "snippet": {
+                    "text": "key_63 = \"012345678901234567890123456789012345678901234567890123456789012",
+                    "rendered": {
+                      "text": "key_63 = \"012345678901234567890123456789012345678901234567890123456789012",
+                      "markdown": "`key_63 = \"012345678901234567890123456789012345678901234567890123456789012`"
+                    }
+                  },
+                  "sourceLanguage": "c"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Critical",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "Implementation.Privacy.Token"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-fc0ea905-de4f-40e2-a465-d79581eb6d9a",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                },
+                "region": {
+                  "startLine": 412,
+                  "startColumn": 4,
+                  "endLine": 412,
+                  "endColumn": 25,
+                  "charOffset": 12773,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "memcpy(out, &hash, 8)",
+                    "rendered": {
+                      "text": "memcpy(out, &hash, 8)",
+                      "markdown": "`memcpy(out, &hash, 8)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 12773,
+                        "charLength": 21
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(out, <size of out>,  &hash,  8)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-dd3c681a-608b-420a-98e1-9b861703c093",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                },
+                "region": {
+                  "startLine": 335,
+                  "startColumn": 4,
+                  "endLine": 335,
+                  "endColumn": 25,
+                  "charOffset": 10513,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "memcpy(out, &hash, 8)",
+                    "rendered": {
+                      "text": "memcpy(out, &hash, 8)",
+                      "markdown": "`memcpy(out, &hash, 8)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 10513,
+                        "charLength": 21
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(out, <size of out>,  &hash,  8)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-fabebf85-ce56-476e-b1d4-cf05fb00b051",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                },
+                "region": {
+                  "startLine": 253,
+                  "startColumn": 78,
+                  "endLine": 253,
+                  "endColumn": 110,
+                  "charOffset": 8126,
+                  "charLength": 32,
+                  "snippet": {
+                    "text": "strlen(MetroHash64::test_string)",
+                    "rendered": {
+                      "text": "strlen(MetroHash64::test_string)",
+                      "markdown": "`strlen(MetroHash64::test_string)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8126,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(MetroHash64::test_string, <size of MetroHash64::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 8126,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(MetroHash64::test_string, <size of MetroHash64::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-2632f683-1309-4a34-aea4-f32bed59903d",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                },
+                "region": {
+                  "startLine": 248,
+                  "startColumn": 78,
+                  "endLine": 248,
+                  "endColumn": 110,
+                  "charOffset": 7891,
+                  "charLength": 32,
+                  "snippet": {
+                    "text": "strlen(MetroHash64::test_string)",
+                    "rendered": {
+                      "text": "strlen(MetroHash64::test_string)",
+                      "markdown": "`strlen(MetroHash64::test_string)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 7891,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(MetroHash64::test_string, <size of MetroHash64::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 7891,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(MetroHash64::test_string, <size of MetroHash64::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-dfe9865f-7312-41cf-9a16-7ebb7324de61",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                },
+                "region": {
+                  "startLine": 241,
+                  "startColumn": 27,
+                  "endLine": 241,
+                  "endColumn": 59,
+                  "charOffset": 7608,
+                  "charLength": 32,
+                  "snippet": {
+                    "text": "strlen(MetroHash64::test_string)",
+                    "rendered": {
+                      "text": "strlen(MetroHash64::test_string)",
+                      "markdown": "`strlen(MetroHash64::test_string)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 7608,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(MetroHash64::test_string, <size of MetroHash64::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "20250722a/pal/shared/metrohash/src/metrohash64.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 7608,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(MetroHash64::test_string, <size of MetroHash64::test_string>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        }
+      ],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ]
+    }
+  ]
+}
